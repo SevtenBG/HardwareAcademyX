@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <title>Video Tutorial Hub</title>
+</head>
+<body>
+
+  <!-- Placeholders -->
+  <div id="header-container"></div>
+
+  <main>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Tutorial Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 9999px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(156, 163, 175, 0.7); }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
+
+    <header class="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Logo & Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <i class="ph-bold ph-video-camera text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">Video Hub</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Source: <span class="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-brand-600 dark:text-brand-400">YouTube</span></p>
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-3">
+                <span id="databaseStatus" class="hidden text-xs text-slate-500 sm:inline">Workspace database</span>
+                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">
+                    <i id="themeIcon" class="ph-bold ph-moon text-lg"></i>
+                </button>
+                <button onclick="openModal()" class="flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg shadow-md shadow-brand-500/20 transition active:scale-95 text-sm">
+                    <i class="ph-bold ph-plus"></i>
+                    <span>Add Video</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Search and Filters Bar -->
+        <div class="mb-8 space-y-4">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <!-- Search Input -->
+                <div class="relative w-full md:w-96">
+                    <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    <input type="text" id="searchInput" placeholder="Search titles, descriptions, steps..." 
+                        class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand-500 focus:outline-none transition text-sm">
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
+                    <select id="typeFilter" aria-label="Tutorial type" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="All">All Types</option>
+                    </select>
+                    <select id="deviceFilter" aria-label="Hardware device" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="All">All Devices</option>
+                    </select>
+                    <!-- Category Select -->
+                    <select id="categoryFilter" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="All">All Categories</option>
+                    </select>
+
+                    <!-- Sort Order -->
+                    <select id="sortOrder" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="duration">Sort by Duration</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Active Tag Bar -->
+        </div>
+
+        <!-- Hidden Global Video Element for Pre-loading duration metadata -->
+        <video id="metaCalcVideo" class="hidden" preload="metadata"></video>
+
+        <!-- Gallery Grid -->
+        <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards rendered dynamically -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="ph-bold ph-video-slash"></i>
+            </div>
+            <h3 class="text-base font-semibold text-slate-700 dark:text-slate-300">No videos found</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Try adjusting your search terms or add a new video entry.</p>
+        </div>
+    </main>
+
+    <!-- Add Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden transform transition-all scale-95 opacity-0" id="modalContainer">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="ph-bold ph-folder-plus text-brand-600 text-xl"></i>
+                    <h2 id="videoModalTitle" class="text-lg font-bold text-slate-800 dark:text-white">Add New Video Entry</h2>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg">
+                    <i class="ph-bold ph-x text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Form -->
+            <form id="addVideoForm" onsubmit="handleFormSubmit(event)" class="p-6 overflow-y-auto space-y-4 custom-scrollbar flex-1">
+                <!-- Video Title -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Video Title *</label>
+                    <input type="text" id="formTitle" required placeholder="e.g. Building a CSS Grid Layout"
+                        class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                </div>
+
+                <!-- YouTube URL -->
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-700">
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">
+                        YouTube Video URL *
+                    </label>
+                    <input type="url" id="formVideoUrl" required placeholder="https://www.youtube.com/watch?v=..." oninput="handleYouTubeUrlInput(event)"
+                        class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none font-mono text-xs">
+                    <p class="mt-2 text-[11px] text-slate-400">
+                        Paste a YouTube watch link, short link, or direct video ID.
+                    </p>
+
+                    <div id="durationStatus" class="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                        <i class="ph-bold ph-youtube-logo"></i>
+                        <span>Source: <strong id="detectedDurationText" class="text-brand-600 dark:text-brand-400">Waiting for YouTube URL</strong></span>
+                    </div>
+                </div>
+
+                <!-- Type, Category & Device Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Type</label>
+                        <select id="formType" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Category</label>
+                        <select id="formCategory" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </select>
+                    </div>
+                    <div id="formDeviceGroup">
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1" for="formDevice">Device</label>
+                        <select id="formDevice" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Description *</label>
+                    <textarea id="formDescription" rows="2" required placeholder="Brief summary of what this video covers..."
+                        class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+                </div>
+
+                <!-- Quick Steps -->
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Quick Steps (Step-by-step list)</label>
+                        <button type="button" onclick="addStepInput()" class="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
+                            <i class="ph-bold ph-plus-circle"></i> Add Step
+                        </button>
+                    </div>
+                    <div id="quickStepsContainer" class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-slate-400 w-4">1.</span>
+                            <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Step description...">
+                            <button type="button" onclick="removeStepInput(this)" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Footer Buttons -->
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Cancel</button>
+                    <button id="saveVideoButton" type="submit" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium shadow-md shadow-brand-500/20 transition flex items-center gap-1.5">
+                        <i class="ph-bold ph-check"></i> Save Video
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let videos = [];
+        let calculatedDuration = 180;
+        let selectedFileBlob = null;
+        let editingVideoId = null;
+        let tutorialTypes = [];
+        let tutorialCategories = {};
+        let tutorialDevices = [];
+
+        async function loadCategoryConfiguration() {
+            const [typesResponse, categoriesResponse, devicesResponse] = await Promise.all([
+                fetch('../Other/TypeList.json', { cache: 'no-store' }),
+                fetch('../Other/CategoriesList.json', { cache: 'no-store' }),
+                fetch('../Other/DeviceList.json', { cache: 'no-store' })
+            ]);
+            if (!typesResponse.ok || !categoriesResponse.ok || !devicesResponse.ok) {
+                throw new Error('Could not load the type, category, or device lists.');
+            }
+
+            [tutorialTypes, tutorialCategories, tutorialDevices] = await Promise.all([
+                typesResponse.json(),
+                categoriesResponse.json(),
+                devicesResponse.json()
+            ]);
+            if (!Array.isArray(tutorialTypes) || !tutorialTypes.length || !tutorialCategories || Array.isArray(tutorialCategories) || !Array.isArray(tutorialDevices) || !tutorialDevices.length) {
+                throw new Error('The type, category, or device lists have an invalid format.');
+            }
+        }
+
+        function populateTypeOptions(selectId, includeAll = false) {
+            const select = document.getElementById(selectId);
+            const previousValue = select.value;
+            select.replaceChildren();
+            if (includeAll) select.add(new Option('All Types', 'All'));
+            tutorialTypes.forEach(type => select.add(new Option(type, type)));
+            select.value = [...select.options].some(option => option.value === previousValue)
+                ? previousValue
+                : includeAll ? 'All' : tutorialTypes[0];
+        }
+
+        function populateDeviceOptions(selectId, includeAll = false) {
+            const select = document.getElementById(selectId);
+            const previousValue = select.value;
+            select.replaceChildren();
+            if (includeAll) select.add(new Option('All Devices', 'All'));
+            tutorialDevices.forEach(device => select.add(new Option(device, device)));
+            select.value = [...select.options].some(option => option.value === previousValue)
+                ? previousValue
+                : includeAll ? 'All' : tutorialDevices[0];
+        }
+
+        function updateCategoryOptions(selectId, type, includeAll = false) {
+            const select = document.getElementById(selectId);
+            const previousValue = select.value;
+            const categories = type === 'All'
+                ? [...new Set(Object.values(tutorialCategories).flat())]
+                : tutorialCategories[type] || [];
+            select.replaceChildren();
+            if (includeAll) select.add(new Option('All Categories', 'All'));
+            categories.forEach(category => select.add(new Option(category, category)));
+            select.value = [...select.options].some(option => option.value === previousValue)
+                ? previousValue
+                : includeAll ? 'All' : categories[0];
+        }
+
+        function normalizeYouTubeUrl(url) {
+            if (!url) return '';
+            const trimmed = url.trim();
+            const youtubeMatch = trimmed.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/);
+            if (youtubeMatch) return `https://www.youtube.com/watch?v=${youtubeMatch[1]}`;
+            if (/^[A-Za-z0-9_-]{11}$/.test(trimmed)) return `https://www.youtube.com/watch?v=${trimmed}`;
+            return trimmed;
+        }
+
+        function getYouTubeEmbedUrl(url) {
+            const normalized = normalizeYouTubeUrl(url);
+            const embedMatch = normalized.match(/(?:v=|\/)([A-Za-z0-9_-]{11})(?:&|$)/);
+            if (embedMatch) return `https://www.youtube.com/embed/${embedMatch[1]}?rel=0`;
+            return normalized;
+        }
+
+        function isYouTubeUrl(url) {
+            return /youtube\.com|youtu\.be/.test(url || '');
+        }
+
+        // On Page Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            initTheme();
+            bindEvents();
+            try {
+                await loadCategoryConfiguration();
+                populateTypeOptions('typeFilter', true);
+                populateTypeOptions('formType');
+                populateDeviceOptions('deviceFilter', true);
+                populateDeviceOptions('formDevice');
+                updateCategoryOptions('categoryFilter', document.getElementById('typeFilter').value, true);
+                updateCategoryOptions('formCategory', document.getElementById('formType').value);
+                document.getElementById('formDeviceGroup').hidden = document.getElementById('formType').value !== 'Hardware';
+            } catch (error) {
+                console.error('Could not load type and category lists:', error);
+                document.getElementById('databaseStatus').textContent = 'Category lists unavailable';
+                return;
+            }
+            await loadTutorialDatabase();
+            renderGallery();
+        });
+
+        async function loadTutorialDatabase() {
+            try {
+                const response = await fetch('../Other/TutorialDataBase.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error(`Database request failed: ${response.status}`);
+                const database = await response.json();
+
+                if (!database || !Array.isArray(database.tutorials)) {
+                    throw new Error('TutorialDataBase.json must contain a tutorials array.');
+                }
+
+                videos = database.tutorials.map(tutorial => ({
+                    id: tutorial.tutorialId,
+                    title: tutorial.name,
+                    src: tutorial.videoUrl,
+                    type: tutorial.type === 'Software' ? 'Software' : 'Hardware',
+                    category: tutorial.category || 'General',
+                    device: tutorial.device || tutorialDevices[0],
+                    description: tutorial.description || '',
+                    quickSteps: Array.isArray(tutorial.stepsGuide) ? tutorial.stepsGuide : [],
+                    durationSec: 0,
+                    createdAt: tutorial.createdAt || ''
+                }));
+            } catch (error) {
+                console.error('Could not load TutorialDataBase.json:', error);
+                videos = [];
+                document.getElementById('databaseStatus').textContent = 'Database unavailable';
+            }
+        }
+
+        // Event Listeners Binding
+        function bindEvents() {
+            document.getElementById('searchInput').addEventListener('input', renderGallery);
+            document.getElementById('typeFilter').addEventListener('change', event => {
+                updateCategoryOptions('categoryFilter', event.target.value, true);
+                const deviceFilter = document.getElementById('deviceFilter');
+                deviceFilter.hidden = event.target.value === 'Software';
+                if (deviceFilter.hidden) deviceFilter.value = 'All';
+                renderGallery();
+            });
+            document.getElementById('deviceFilter').addEventListener('change', renderGallery);
+            document.getElementById('categoryFilter').addEventListener('change', renderGallery);
+            document.getElementById('sortOrder').addEventListener('change', renderGallery);
+            document.getElementById('formType').addEventListener('change', event => {
+                updateCategoryOptions('formCategory', event.target.value);
+                document.getElementById('formDeviceGroup').hidden = event.target.value !== 'Hardware';
+            });
+        }
+
+        // Format Seconds to MM:SS or HH:MM:SS
+        function formatDuration(seconds) {
+            if (!seconds || isNaN(seconds) || seconds <= 0) return '00:00';
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+
+            if (hrs > 0) {
+                return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Auto-fill approximate metadata for YouTube videos
+        function calculateAllDurations() {
+            for (let video of videos) {
+                if (!video.durationSec || video.durationSec === 0) {
+                    video.durationSec = isYouTubeUrl(video.src) ? 180 : 180;
+                }
+            }
+            saveState();
+            renderGallery();
+        }
+
+        // Render Video Cards in Grid Layout
+        function renderGallery() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const type = document.getElementById('typeFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const sortBy = document.getElementById('sortOrder').value;
+            const device = document.getElementById('deviceFilter').value;
+
+            let filtered = videos.filter(video => {
+                const matchesQuery = 
+                    video.title.toLowerCase().includes(query) ||
+                    video.description.toLowerCase().includes(query) ||
+                    video.quickSteps.some(step => step.toLowerCase().includes(query));
+
+                const matchesType = type === 'All' || video.type === type;
+                const matchesCategory = category === 'All' || video.category === category;
+                const matchesDevice = device === 'All' || (video.type === 'Hardware' && video.device === device);
+
+                return matchesQuery && matchesType && matchesCategory && matchesDevice;
+            });
+
+            // Sorting logic
+            if (sortBy === 'newest') {
+                filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            } else if (sortBy === 'oldest') {
+                filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+            } else if (sortBy === 'duration') {
+                filtered.sort((a, b) => b.durationSec - a.durationSec);
+            }
+
+            const grid = document.getElementById('videoGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(video => {
+                const embedUrl = getYouTubeEmbedUrl(video.src);
+                return `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                        <!-- Video Container -->
+                        <div class="relative bg-slate-900 aspect-video flex items-center justify-center overflow-hidden">
+                            <iframe
+                                class="w-full h-full"
+                                src="${embedUrl}"
+                                title="${escapeHtml(video.title)}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen>
+                            </iframe>
+
+                            <span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-xs px-2.5 py-1 rounded-md font-mono flex items-center gap-1 shadow">
+                                <i class="ph-bold ph-youtube-logo"></i>
+                                <span id="duration-badge-${video.id}">${isYouTubeUrl(video.src) ? 'YouTube' : formatDuration(video.durationSec)}</span>
+                            </span>
+
+                            <span class="absolute top-3 left-3 bg-brand-600/90 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded shadow">
+                                ${video.category}
+                            </span>
+                        </div>
+
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                            <div class="space-y-2">
+                                <div class="flex items-start justify-between gap-2">
+                                    <h3 class="font-bold text-base line-clamp-1 text-slate-800 dark:text-slate-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition">
+                                        ${escapeHtml(video.title)}
+                                    </h3>
+                                    <div class="flex shrink-0 items-center gap-1">
+                                        <button onclick="editVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-brand-600" title="Edit video" aria-label="Edit ${escapeHtml(video.title)}">
+                                            <i class="ph-bold ph-pencil-simple text-sm"></i>
+                                        </button>
+                                        <button onclick="deleteVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-red-500" title="Delete video" aria-label="Delete ${escapeHtml(video.title)}">
+                                            <i class="ph-bold ph-trash text-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                                    ${escapeHtml(video.description)}
+                                </p>
+                            </div>
+
+                            ${video.quickSteps && video.quickSteps.length > 0 ? `
+                            <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
+                                <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1">
+                                    <i class="ph-bold ph-list-checks text-brand-500"></i> Quick Steps
+                                </h4>
+                                <ol class="space-y-1">
+                                    ${video.quickSteps.map((step, idx) => `
+                                        <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start gap-2">
+                                            <span class="font-bold text-brand-600 dark:text-brand-400 text-[10px] mt-0.5">${idx + 1}.</span>
+                                            <span class="flex-1">${escapeHtml(step)}</span>
+                                        </li>
+                                    `).join('')}
+                                </ol>
+                            </div>
+                            ` : ''}
+
+                            <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+                                ${video.type === 'Hardware' ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">${escapeHtml(video.device)}</span>` : ''}
+                                <span class="ml-auto text-[10px] text-slate-400 self-center font-mono">
+                                    ID: ${escapeHtml(video.id)}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update card duration dynamically if loaded in DOM player
+        function updateCardDuration(id, duration) {
+            if (!duration || isNaN(duration)) return;
+            const target = videos.find(v => v.id === id);
+            if (target && target.durationSec !== duration) {
+                target.durationSec = duration;
+                const badge = document.getElementById(`duration-badge-${id}`);
+                if (badge) badge.textContent = formatDuration(duration);
+                saveState();
+            }
+        }
+
+        // YouTube URL validation for form modal
+        function handleYouTubeUrlInput(event) {
+            const value = event.target.value.trim();
+            const statusText = document.getElementById('detectedDurationText');
+            if (!value) {
+                statusText.textContent = 'Waiting for YouTube URL';
+                calculatedDuration = 180;
+                return;
+            }
+
+            const normalized = normalizeYouTubeUrl(value);
+            if (isYouTubeUrl(normalized)) {
+                statusText.textContent = 'YouTube URL ready';
+                calculatedDuration = 180;
+            } else {
+                statusText.textContent = 'Not a valid YouTube URL';
+                calculatedDuration = 180;
+            }
+        }
+
+        // Quick Steps Dynamic Field Handlers
+        function addStepInput() {
+            const container = document.getElementById('quickStepsContainer');
+            const count = container.children.length + 1;
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2';
+            div.innerHTML = `
+                <span class="text-xs font-bold text-slate-400 w-4">${count}.</span>
+                <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Step description...">
+                <button type="button" onclick="removeStepInput(this)" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeStepInput(btn) {
+            btn.parentElement.remove();
+            const steps = document.querySelectorAll('#quickStepsContainer > div');
+            steps.forEach((step, idx) => {
+                step.querySelector('span').textContent = `${idx + 1}.`;
+            });
+        }
+
+        // Handle Form Submission
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('formTitle').value.trim();
+            const youtubeUrl = document.getElementById('formVideoUrl').value.trim();
+            const type = document.getElementById('formType').value;
+            const category = document.getElementById('formCategory').value;
+            const device = type === 'Hardware' ? document.getElementById('formDevice').value : null;
+            const description = document.getElementById('formDescription').value.trim();
+
+            const stepInputs = document.querySelectorAll('.quick-step-input');
+            const quickSteps = Array.from(stepInputs)
+                .map(input => input.value.trim())
+                .filter(val => val.length > 0);
+
+            if (quickSteps.length === 0) {
+                alert('Please add at least one tutorial step.');
+                return;
+            }
+
+            if (!youtubeUrl || !isYouTubeUrl(normalizeYouTubeUrl(youtubeUrl))) {
+                alert('Please enter a valid YouTube URL.');
+                return;
+            }
+
+            const normalizedUrl = normalizeYouTubeUrl(youtubeUrl);
+
+            const existingIndex = videos.findIndex(video => video.id === editingVideoId);
+            if (editingVideoId && existingIndex === -1) {
+                alert('This tutorial is no longer available. Refresh the page and try again.');
+                return;
+            }
+
+            const updatedVideo = {
+                id: editingVideoId || `tutorial-${crypto.randomUUID()}`,
+                title: title,
+                src: normalizedUrl,
+                type: type,
+                category: category,
+                device: device,
+                description: description,
+                quickSteps: quickSteps,
+                durationSec: existingIndex >= 0 ? videos[existingIndex].durationSec : calculatedDuration || 180,
+                createdAt: existingIndex >= 0 ? videos[existingIndex].createdAt : new Date().toISOString()
+            };
+
+            const previousVideos = videos;
+            if (existingIndex >= 0) {
+                videos = videos.map((video, index) => index === existingIndex ? updatedVideo : video);
+            } else {
+                videos.unshift(updatedVideo);
+            }
+            if (!await saveState()) {
+                videos = previousVideos;
+                return;
+            }
+            closeModal();
+            renderGallery();
+        }
+
+        // Delete Video Card
+        async function deleteVideo(id) {
+            const previousVideos = videos;
+            videos = videos.filter(v => v.id !== id);
+            if (!await saveState()) {
+                videos = previousVideos;
+                return;
+            }
+            renderGallery();
+        }
+
+        // Save State
+        async function saveState() {
+            const database = {
+                tutorials: videos.map(video => ({
+                    tutorialId: video.id,
+                    videoUrl: video.src,
+                    name: video.title,
+                    description: video.description,
+                    stepsGuide: video.quickSteps,
+                    type: video.type,
+                    category: video.category,
+                    device: video.device
+                }))
+            };
+            try {
+                const response = await fetch('/api/tutorials', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(database)
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || `Save failed: ${response.status}`);
+                document.getElementById('databaseStatus').textContent = 'Workspace database saved';
+                return true;
+            } catch (error) {
+                console.error('Could not save TutorialDataBase.json:', error);
+                document.getElementById('databaseStatus').textContent = 'Database save failed';
+                alert(`Could not save to the website database. Start the site with "python Other/server.py".\n\n${error.message}`);
+                return false;
+            }
+        }
+
+        // Modal Handlers
+        function openModal() {
+            resetVideoForm();
+            showVideoModal();
+        }
+
+        function editVideo(id) {
+            const video = videos.find(item => item.id === id);
+            if (!video) return;
+
+            editingVideoId = id;
+            document.getElementById('formTitle').value = video.title;
+            document.getElementById('formVideoUrl').value = video.src;
+            document.getElementById('formType').value = video.type;
+            updateCategoryOptions('formCategory', video.type);
+            if (![...document.getElementById('formCategory').options].some(option => option.value === video.category)) {
+                document.getElementById('formCategory').add(new Option(video.category, video.category));
+            }
+            document.getElementById('formCategory').value = video.category;
+            document.getElementById('formDevice').value = video.device || tutorialDevices[0];
+            document.getElementById('formDeviceGroup').hidden = video.type !== 'Hardware';
+            document.getElementById('formDescription').value = video.description;
+            handleYouTubeUrlInput({ target: document.getElementById('formVideoUrl') });
+
+            const stepsContainer = document.getElementById('quickStepsContainer');
+            stepsContainer.replaceChildren();
+            (video.quickSteps.length ? video.quickSteps : ['']).forEach(step => {
+                addStepInput();
+                stepsContainer.lastElementChild.querySelector('input').value = step;
+            });
+
+            document.getElementById('videoModalTitle').textContent = 'Edit Video Entry';
+            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Save Changes';
+            showVideoModal();
+        }
+
+        function resetVideoForm() {
+            editingVideoId = null;
+            document.getElementById('addVideoForm').reset();
+            document.getElementById('formType').selectedIndex = 0;
+            updateCategoryOptions('formCategory', document.getElementById('formType').value);
+            document.getElementById('formDevice').value = tutorialDevices[0];
+            document.getElementById('formDeviceGroup').hidden = document.getElementById('formType').value !== 'Hardware';
+            const stepsContainer = document.getElementById('quickStepsContainer');
+            stepsContainer.replaceChildren();
+            addStepInput();
+            document.getElementById('videoModalTitle').textContent = 'Add New Video Entry';
+            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Save Video';
+            calculatedDuration = 180;
+            document.getElementById('detectedDurationText').textContent = 'Waiting for YouTube URL';
+        }
+
+        function showVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('modalContainer');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('modalContainer');
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                resetVideoForm();
+            }, 200);
+        }
+
+        // Theme Toggle Logic
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'ph-bold ph-sun text-lg';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'ph-bold ph-moon text-lg';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                document.getElementById('themeIcon').className = 'ph-bold ph-moon text-lg';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                document.getElementById('themeIcon').className = 'ph-bold ph-sun text-lg';
+            }
+        }
+
+        // Utility Security Helper
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <!-- Load Header & Footer -->
+  <script>
+    async function loadComponent(elementId, filePath) {
+      try {
+        const cacheBustPath = `${filePath}?cacheBust=${Date.now()}`;
+        const response = await fetch(cacheBustPath);
+        if (response.ok) {
+          const content = await response.text();
+          const container = document.getElementById(elementId);
+          container.innerHTML = content;
+
+          let overrideStyle = document.getElementById('menu-zindex-override');
+          if (!overrideStyle) {
+            overrideStyle = document.createElement('style');
+            overrideStyle.id = 'menu-zindex-override';
+            overrideStyle.textContent = `
+              .menu-host { position: relative; z-index: 2147483647 !important; }
+              .menu-toggle { z-index: 2147483647 !important; }
+              .nav { z-index: 2147483647 !important; }
+            `;
+            document.head.appendChild(overrideStyle);
+          }
+
+          container.querySelectorAll('script').forEach((script) => {
+            const executableScript = document.createElement('script');
+            Array.from(script.attributes).forEach((attribute) => {
+              executableScript.setAttribute(attribute.name, attribute.value);
+            });
+            executableScript.textContent = script.textContent;
+            script.replaceWith(executableScript);
+          });
+        } else {
+          console.error(`Failed to load ${filePath}: ${response.status}`);
+        }
+      } catch (error) {
+        console.error(`Error loading ${filePath}:`, error);
+      }
+    }
+
+    // Use '../' to step out of the Pages folder into Header&Footer
+    loadComponent('header-container', '../Header&Footer/Header.html');
+    loadComponent('footer-container', '../Header&Footer/Footer.html');
+  </script>
+
+</body>
+</html>

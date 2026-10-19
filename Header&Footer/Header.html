@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Header</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: transparent;
+      }
+
+      .site-header {
+        --header-accent: #8da2ff;
+        position: relative;
+        z-index: 1000;
+        background: #242530;
+        box-shadow: 0 8px 25px rgba(36, 37, 48, 0.35);
+        border-bottom: 1px solid rgba(141, 162, 255, 0.25);
+      }
+
+      .menu-host {
+        position: relative;
+        z-index: 2147483647;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 12px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .brand {
+        font-size: clamp(1.5rem, 2vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: linear-gradient(
+          90deg,
+          #edf1ff 0%,
+          #b9c7ff 18%,
+          #8da2ff 35%,
+          #aabaff 52%,
+          #7f96ff 70%,
+          #e5ebff 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 18px rgba(141, 162, 255, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="main-navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="menu-host"></div>
+
+        <div class="brand">Hardware Academy X</div>
+      </div>
+    </header>
+    <script>
+      async function loadMenu() {
+        const menuHost = document.querySelector(".menu-host");
+
+        try {
+          const response = await fetch("../Menus/BurgerMenu.html?cacheBust=" + Date.now());
+          if (!response.ok) {
+            throw new Error(`Failed to load menu: ${response.status}`);
+          }
+
+          menuHost.innerHTML = await response.text();
+            menuHost.querySelectorAll("script").forEach((script) => {
+              const executableScript = document.createElement("script");
+              executableScript.textContent = script.textContent;
+              script.replaceWith(executableScript);
+            });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      loadMenu();
+    </script>
+  </body>
+</html>

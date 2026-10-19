@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorials</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./tutorial-display.js?v=2" defer></script>
+</head>
+<body>
+
+  <!-- Placeholders -->
+  <div id="header-container"></div>
+
+  <main>
+    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="mb-7 flex flex-wrap items-center justify-between gap-4">
+        <h1 class="text-3xl font-bold text-slate-900">Tutorials</h1>
+        <a href="../Admin/VideoHub.html" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">Video Hub</a>
+      </div>
+      <div id="tutorial-list" data-page="index" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <p class="col-span-full py-12 text-center text-slate-500">Loading tutorials...</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <!-- Load Header & Footer -->
+  <script>
+    async function loadComponent(elementId, filePath) {
+      try {
+        const cacheBustPath = `${filePath}?cacheBust=${Date.now()}`;
+        const response = await fetch(cacheBustPath);
+        if (response.ok) {
+          const content = await response.text();
+          const container = document.getElementById(elementId);
+          container.innerHTML = content;
+
+          let overrideStyle = document.getElementById('menu-zindex-override');
+          if (!overrideStyle) {
+            overrideStyle = document.createElement('style');
+            overrideStyle.id = 'menu-zindex-override';
+            overrideStyle.textContent = `
+              .menu-host { position: relative; z-index: 2147483647 !important; }
+              .menu-toggle { z-index: 2147483647 !important; }
+              .nav { z-index: 2147483647 !important; }
+            `;
+            document.head.appendChild(overrideStyle);
+          }
+
+          container.querySelectorAll('script').forEach((script) => {
+            const executableScript = document.createElement('script');
+            Array.from(script.attributes).forEach((attribute) => {
+              executableScript.setAttribute(attribute.name, attribute.value);
+            });
+            executableScript.textContent = script.textContent;
+            script.replaceWith(executableScript);
+          });
+        } else {
+          console.error(`Failed to load ${filePath}: ${response.status}`);
+        }
+      } catch (error) {
+        console.error(`Error loading ${filePath}:`, error);
+      }
+    }
+
+    // Use '../' to step out of the Pages folder into Header&Footer
+    loadComponent('header-container', '../Header&Footer/Header.html');
+    loadComponent('footer-container', '../Header&Footer/Footer.html');
+  </script>
+
+</body>
+</html>

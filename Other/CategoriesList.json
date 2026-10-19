@@ -1,0 +1,14 @@
+{
+  "Hardware": [
+    "General",
+    "Repair",
+    "Upgrade",
+    "Clean"
+  ],
+  "Software": [
+    "General",
+    "Installation",
+    "Testing",
+    "Update"
+  ]
+}
