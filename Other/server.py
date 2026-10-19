@@ -169,8 +169,8 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    server = ThreadingHTTPServer(("127.0.0.1", 8000), WebsiteRequestHandler)
-    print("Website server running at http://127.0.0.1:8000")
+    server = ThreadingHTTPServer(("127.0.0.1", 4500), WebsiteRequestHandler)
+    print("Website server running at http://127.0.0.1:4500")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
