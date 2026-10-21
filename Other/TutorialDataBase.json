@@ -1,3 +1,134 @@
 {
-  "tutorials": []
+  "tutorials": [
+    {
+      "tutorialId": "tutorial-aff3a88e-ca88-4c94-89ac-b83c456e749d",
+      "videoUrl": "https://www.youtube.com/watch?v=DC-Xn2C_L1U",
+      "name": "Building your first computer",
+      "description": "How to build your first computer. Step by step guide. Video + instructions",
+      "stepsGuide": [
+        "Setting up the motherboard",
+        "CPU installation on the motherboard",
+        "RAM installation on the motherboard",
+        "SSD installation on the motherboard",
+        "CPU Cooler installation on the CPU + Fans",
+        "Test Boot",
+        "PC case unpacking",
+        "Mounting motherboard in case",
+        "Connecting cables from fans, ssd, hdd and other",
+        "Installing the power supply in the case",
+        "Doing all the cable management from the power supply",
+        "Installing the graphics card",
+        "Booting the pc"
+      ],
+      "type": "Hardware",
+      "category": "General",
+      "device": "Desktop"
+    },
+    {
+      "tutorialId": "tutorial-b12c456e-789a-4bcdef-1234-56789abcdef0",
+      "videoUrl": "https://www.youtube.com/watch?v=VNnZU5IOyc4",
+      "name": "Laptop Screen Replacement Guide",
+      "description": "Step-by-step instructions on how to safely replace a cracked laptop screen.",
+      "stepsGuide": [
+        "Power down and disconnect the battery",
+        "Remove bezel screws and carefully pry off the bezel",
+        "Unscrew the LCD panel from the hinges",
+        "Disconnect the display cable safely",
+        "Connect the new screen and reassemble"
+      ],
+      "type": "Hardware",
+      "category": "Repair",
+      "device": "Laptop"
+    },
+    {
+      "tutorialId": "tutorial-c34d5678-9012-4def-abcd-ef0123456789",
+      "videoUrl": "https://www.youtube.com/watch?v=example2",
+      "name": "Upgrading RAM and SSD in a Laptop",
+      "description": "Boost your laptop performance by upgrading memory and storage.",
+      "stepsGuide": [
+        "Open the back panel of the laptop",
+        "Disconnect the battery for safety",
+        "Remove old RAM and insert new sticks",
+        "Install the new M.2 NVMe SSD",
+        "Reassemble and boot up"
+      ],
+      "type": "Hardware",
+      "category": "Upgrade",
+      "device": "Laptop"
+    },
+    {
+      "tutorialId": "tutorial-d56e7890-1234-5efg-abcd-ef8901234567",
+      "videoUrl": "https://www.youtube.com/watch?v=example3",
+      "name": "How to Clean Dust Out of Your Phone Charging Port",
+      "description": "Quick and safe ways to clear out lint and dust from a smartphone port.",
+      "stepsGuide": [
+        "Power off the phone",
+        "Use a wooden toothpick carefully to clear debris",
+        "Blow out remaining dust with compressed air safely",
+        "Test the cable connection"
+      ],
+      "type": "Hardware",
+      "category": "Clean",
+      "device": "Phone"
+    },
+    {
+      "tutorialId": "tutorial-e789f012-3456-7890-abcd-ef1234567890",
+      "videoUrl": "https://www.youtube.com/watch?v=example4",
+      "name": "Understanding Your Operating System Settings",
+      "description": "A general overview of basic system settings and navigation.",
+      "stepsGuide": [
+        "Accessing settings menu",
+        "Checking storage and memory usage",
+        "Configuring privacy and notifications"
+      ],
+      "type": "Software",
+      "category": "General",
+      "device": null
+    },
+    {
+      "tutorialId": "tutorial-f901a234-5678-9012-abcd-ef3456789012",
+      "videoUrl": "https://www.youtube.com/watch?v=example5",
+      "name": "Installing Productivity Software on Desktop",
+      "description": "How to download, install, and set up essential desktop applications.",
+      "stepsGuide": [
+        "Download the official installer",
+        "Run the executable file",
+        "Follow the setup wizard instructions",
+        "Launch and sign in"
+      ],
+      "type": "Software",
+      "category": "Installation",
+      "device": null
+    },
+    {
+      "tutorialId": "tutorial-a234b567-8901-2345-abcd-ef5678901234",
+      "videoUrl": "https://www.youtube.com/watch?v=example6",
+      "name": "Running Hardware and Software Diagnostics on Phones",
+      "description": "How to test your phone's sensors, screen, and battery health.",
+      "stepsGuide": [
+        "Open phone diagnostic mode or download a trusted test app",
+        "Run touch screen and multi-touch tests",
+        "Test speakers, microphone, and cameras",
+        "Check overall battery status"
+      ],
+      "type": "Software",
+      "category": "Testing",
+      "device": null
+    },
+    {
+      "tutorialId": "tutorial-b345c678-9012-3456-abcd-ef7890123456",
+      "videoUrl": "https://www.youtube.com/watch?v=example7",
+      "name": "Updating Your Laptop Operating System",
+      "description": "Step-by-step guide to keeping your laptop software secure and up to date.",
+      "stepsGuide": [
+        "Connect to a stable Wi-Fi network and plug in the charger",
+        "Navigate to System Update settings",
+        "Download available updates",
+        "Restart the laptop to complete installation"
+      ],
+      "type": "Software",
+      "category": "Update",
+      "device": null
+    }
+  ]
 }

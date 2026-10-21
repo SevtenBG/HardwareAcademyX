@@ -348,7 +348,7 @@
                     src: tutorial.videoUrl,
                     type: tutorial.type === 'Software' ? 'Software' : 'Hardware',
                     category: tutorial.category || 'General',
-                    device: tutorial.device || tutorialDevices[0],
+                    device: tutorial.type === 'Software' ? null : tutorial.device || tutorialDevices[0],
                     description: tutorial.description || '',
                     quickSteps: Array.isArray(tutorial.stepsGuide) ? tutorial.stepsGuide : [],
                     durationSec: 0,
@@ -655,7 +655,7 @@
                     stepsGuide: video.quickSteps,
                     type: video.type,
                     category: video.category,
-                    device: video.device
+                    device: video.type === 'Hardware' ? video.device : null
                 }))
             };
             try {
