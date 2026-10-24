@@ -3,25 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Laptop Tutorials</title>
-	<link rel="stylesheet" href="./tutorial-modal.css?v=4">
+	<title>Desktop Tutorials</title>
+	<link rel="stylesheet" href="../css/tutorial-modal.css?v=4">
 	<script src="https://cdn.tailwindcss.com"></script>
-	<script src="./tutorial-modal.js?v=4" defer></script>
-	<script src="./tutorial-display.js?v=4" defer></script>
+	<script src="../js/tutorial-modal.js?v=4" defer></script>
+	<script src="../js/tutorial-display.js?v=4" defer></script>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800">
 	<div id="header-container"></div>
 
 	<main>
 		<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-			<h1 class="mb-7 text-3xl font-bold text-slate-900">Laptop Tutorials</h1>
-			<div class="mb-6 flex justify-end">
-				<label class="sr-only" for="tutorial-category-filter">Filter by category</label>
-				<select id="tutorial-category-filter" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-					<option value="All">All Hardware Categories</option>
-				</select>
+			<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+				<h1 class="text-3xl font-bold text-slate-900">Desktop Tutorials</h1>
+				<div>
+					<label class="sr-only" for="tutorial-category-filter">Filter by category</label>
+					<select id="tutorial-category-filter" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+						<option value="All">All Hardware Categories</option>
+					</select>
+				</div>
 			</div>
-			<div id="tutorial-list" data-page="laptop" data-type="Hardware" data-device="Laptop" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+			<div id="tutorial-list" data-page="desktop" data-type="Hardware" data-device="Desktop" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
 				<p class="col-span-full py-12 text-center text-slate-500">Loading tutorials...</p>
 			</div>
 		</section>
@@ -47,8 +49,8 @@
 			}
 		}
 
-		loadComponent('header-container', '../Header&Footer/Header.html');
-		loadComponent('footer-container', '../Header&Footer/Footer.html');
+		loadComponent('header-container', '/Header&Footer/Header.html');
+		loadComponent('footer-container', '/Header&Footer/Footer.html');
 	</script>
 </body>
 </html>

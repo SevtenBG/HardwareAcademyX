@@ -6,9 +6,9 @@ async function loadPageTutorials() {
 
     try {
         const [databaseResponse, categoriesResponse, devicesResponse] = await Promise.all([
-            fetch('../Other/TutorialDataBase.json', { cache: 'no-store' }),
-            fetch('../Other/CategoriesList.json', { cache: 'no-store' }),
-            fetch('../Other/DeviceList.json', { cache: 'no-store' })
+            fetch('/Other/TutorialDataBase.json', { cache: 'no-store' }),
+            fetch('/Other/CategoriesList.json', { cache: 'no-store' }),
+            fetch('/Other/DeviceList.json', { cache: 'no-store' })
         ]);
         if (!databaseResponse.ok || !categoriesResponse.ok || !devicesResponse.ok) {
             throw new Error('Could not load the tutorial JSON files.');

@@ -16,11 +16,11 @@ python Other/server.py
 
 When the terminal prints `Website server running at http://127.0.0.1:4500`, open the pages at:
 
-- Main page: http://127.0.0.1:4500/Pages/index.html
-- Desktop tutorials: http://127.0.0.1:4500/Pages/desktop.html
-- Laptop tutorials: http://127.0.0.1:4500/Pages/laptop.html
-- Phone tutorials: http://127.0.0.1:4500/Pages/phone.html
-- Software tutorials: http://127.0.0.1:4500/Pages/software.html
+- Main page: http://127.0.0.1:4500/index.html
+- Desktop tutorials: http://127.0.0.1:4500/Pages/html/desktop.html
+- Laptop tutorials: http://127.0.0.1:4500/Pages/html/laptop.html
+- Phone tutorials: http://127.0.0.1:4500/Pages/html/phone.html
+- Software tutorials: http://127.0.0.1:4500/Pages/html/software.html
 - Video Hub: http://127.0.0.1:4500/Admin/VideoHub.html
 
 Keep the terminal running while using the website. In the Video Hub, use **Add Video** to add a tutorial. The server saves updates to `Other/TutorialDataBase.json`.

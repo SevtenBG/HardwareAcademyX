@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tutorials</title>
-  <link rel="stylesheet" href="./tutorial-modal.css?v=4">
+  <link rel="stylesheet" href="/Pages/css/tutorial-modal.css?v=4">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="./tutorial-modal.js?v=4" defer></script>
-  <script src="./tutorial-display.js?v=4" defer></script>
+  <script src="/Pages/js/tutorial-modal.js?v=4" defer></script>
+  <script src="/Pages/js/tutorial-display.js?v=4" defer></script>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <div class="mb-7 flex flex-wrap items-center justify-between gap-4">
         <h1 class="text-3xl font-bold text-slate-900">Tutorials</h1>
-        <a href="../Admin/VideoHub.html" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">Video Hub</a>
+        <a href="/Admin/VideoHub.html" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">Video Hub</a>
       </div>
       <div id="tutorial-list" data-page="index" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <p class="col-span-full py-12 text-center text-slate-500">Loading tutorials...</p>
@@ -44,7 +44,6 @@
             overrideStyle = document.createElement('style');
             overrideStyle.id = 'menu-zindex-override';
             overrideStyle.textContent = `
-              .menu-host { position: relative; z-index: 2147483647 !important; }
               .menu-toggle { z-index: 2147483647 !important; }
               .nav { z-index: 2147483647 !important; }
             `;
@@ -68,8 +67,8 @@
     }
 
     // Use '../' to step out of the Pages folder into Header&Footer
-    loadComponent('header-container', '../Header&Footer/Header.html');
-    loadComponent('footer-container', '../Header&Footer/Footer.html');
+    loadComponent('header-container', '/Header&Footer/Header.html');
+    loadComponent('footer-container', '/Header&Footer/Footer.html');
   </script>
 
 </body>
