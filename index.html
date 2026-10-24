@@ -1,75 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutorials</title>
-  <link rel="stylesheet" href="/Pages/css/tutorial-modal.css?v=4">
+  <title>Hardware Academy X — Начало</title>
+  <link rel="stylesheet" href="/Pages/css/tutorial-modal.css?v=8">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/Pages/js/particle-background.js?v=1" defer></script>
   <script src="/Pages/js/tutorial-modal.js?v=4" defer></script>
   <script src="/Pages/js/tutorial-display.js?v=4" defer></script>
-</head>
-<body>
+  <style>
+    body {
+      background-color: #0a0810;
+    }
 
-  <!-- Placeholders -->
+    #particle-background {
+      position: fixed;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #header-container,
+    main,
+    #footer-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    #header-container {
+      z-index: 1001;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+      background: rgba(15, 23, 42, 0.5);
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    .carousel-track {
+      display: flex;
+      width: max-content;
+      gap: 24px;
+      animation: carousel-scroll 30s linear infinite;
+    }
+
+    .carousel-container:hover .carousel-track {
+      animation-play-state: paused;
+    }
+
+    .carousel-item {
+      width: 280px;
+      height: 180px;
+      flex-shrink: 0;
+      padding: 2px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #7c4dff, #b388ff);
+      box-shadow: 0 10px 30px rgba(124, 77, 255, 0.3);
+    }
+
+    .carousel-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .neon-line {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #7c4dff, #b388ff, #e0d4ff, #b388ff, #7c4dff, transparent);
+      background-size: 200% 100%;
+      animation: neon-pulse 4s linear infinite;
+      box-shadow: 0 0 10px rgba(179, 136, 255, 0.5);
+    }
+
+    .hero-glow {
+      background:
+        radial-gradient(circle at 50% 20%, rgba(124, 77, 255, 0.18), transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(179, 136, 255, 0.1), transparent 50%);
+    }
+
+    .text-gradient {
+      background: linear-gradient(90deg, #fff, #d8c8ff, #b388ff);
+      background-clip: text;
+      color: transparent;
+      -webkit-background-clip: text;
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: #b388ff;
+    }
+
+    .fade-in-up {
+      animation: fade-in-up 0.8s ease-out both;
+    }
+
+    @keyframes carousel-scroll {
+      to { transform: translateX(calc(-50% + 12px)); }
+    }
+
+    @keyframes neon-pulse {
+      to { background-position: -200% 0; }
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .carousel-track,
+      .neon-line,
+      .fade-in-up {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body class="flex min-h-screen flex-col font-sans text-slate-100 antialiased">
   <div id="header-container"></div>
 
-  <main>
-    <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div class="mb-7 flex flex-wrap items-center justify-between gap-4">
-        <h1 class="text-3xl font-bold text-slate-900">Tutorials</h1>
-        <a href="/Admin/VideoHub.html" class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">Video Hub</a>
+  <main class="flex-1">
+    <div class="carousel-container" aria-label="Компютърна техника">
+      <div class="carousel-track">
+        <div class="carousel-item"><img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Дънна платка" fetchpriority="high"></div>
+        <div class="carousel-item"><img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Ремонт на лаптоп" loading="lazy"></div>
+        <div class="carousel-item"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Лаптоп" loading="lazy"></div>
+        <div class="carousel-item"><img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Компютърни части" loading="lazy"></div>
+        <div class="carousel-item"><img src="https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt="Компютърна техника" loading="lazy"></div>
+        <div class="carousel-item" aria-hidden="true"><img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt=""></div>
+        <div class="carousel-item" aria-hidden="true"><img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt=""></div>
+        <div class="carousel-item" aria-hidden="true"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt=""></div>
+        <div class="carousel-item" aria-hidden="true"><img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt=""></div>
+        <div class="carousel-item" aria-hidden="true"><img src="https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?q=80&amp;w=600&amp;auto=format&amp;fit=crop" alt=""></div>
+      </div>
+    </div>
+    <div class="neon-line" aria-hidden="true"></div>
+
+    <section class="hero-glow relative overflow-hidden border-b border-slate-800/50 py-24">
+      <div class="fade-in-up mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <div class="mb-8 flex flex-wrap justify-center gap-3">
+          <span class="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Ремонт</span>
+          <span class="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Сглобяване</span>
+          <span class="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-violet-300">Видео уроци</span>
+        </div>
+
+        <h1 class="mb-6 text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          <span class="text-gradient block">Практични видео уроци</span>
+          <span class="text-slate-300">за компютри и техника</span>
+        </h1>
+
+        <p class="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
+          Научете се да сглобявате, поддържате и отстранявате проблеми с компютри, лаптопи, телефони и софтуер с нашите подробни ръководства.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <a href="/Pages/html/desktop.html" class="rounded-lg bg-violet-600 px-8 py-4 text-base font-bold text-white transition hover:bg-violet-500 hover:shadow-[0_0_25px_rgba(124,77,255,0.5)]">
+            Разгледай уроците
+          </a>
+          <a href="mailto:hardwareacadenyx@gmail.com" class="rounded-lg border border-slate-700 bg-slate-800/50 px-8 py-4 text-base font-bold text-slate-200 transition hover:border-violet-400 hover:text-white">
+            Свържи се с нас
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mx-auto mb-16 max-w-2xl text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white">Какво ще научите?</h2>
+        <p class="text-slate-400">Практични ръководства за ежедневната поддръжка и използване на вашата техника.</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div class="card-hover flex flex-col justify-center rounded-2xl border border-slate-800 bg-slate-900/40 p-10">
+          <h3 class="mb-4 text-2xl font-bold text-white">Хардуер и диагностика</h3>
+          <p class="mb-6 leading-relaxed text-slate-400">
+            Разгледайте уроци за сглобяване на компютър, смяна и надграждане на компоненти, почистване и диагностика на устройства.
+          </p>
+          <a href="/Pages/html/desktop.html" class="font-semibold text-violet-400 transition hover:text-violet-300">Разгледай хардуерните уроци &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8">
+          <a href="/Pages/html/laptop.html" class="card-hover rounded-2xl border border-slate-800 bg-slate-900/40 p-8">
+            <h3 class="mb-2 text-xl font-bold text-white">Лаптопи и телефони</h3>
+            <p class="text-sm text-slate-400">Инструкции за поддръжка, ремонт и подобряване на устройствата ви.</p>
+          </a>
+          <a href="/Pages/html/software.html" class="card-hover rounded-2xl border border-slate-800 bg-slate-900/40 p-8">
+            <h3 class="mb-2 text-xl font-bold text-white">Софтуер и настройки</h3>
+            <p class="text-sm text-slate-400">Уроци за инсталиране, тестване и актуализиране на софтуер.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-slate-800 bg-slate-900/30">
+      <div class="mx-auto flex max-w-7xl flex-col-reverse items-center gap-16 px-4 py-24 sm:px-6 lg:flex-row lg:px-8">
+        <div class="flex-1">
+          <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl">Помощ за ремонт на компютри</h2>
+          <h3 class="mb-6 text-xl font-semibold uppercase tracking-wide text-violet-400">Научете се да отстранявате проблеми сами</h3>
+          <p class="mb-8 text-lg leading-relaxed text-slate-400">
+            Имате проблем с устройството си? Нашите ръководства стъпка по стъпка ще ви помогнат да разпознаете и отстраните често срещани хардуерни и софтуерни проблеми.
+          </p>
+          <ul class="mb-10 space-y-4">
+            <li class="flex items-start gap-3"><span class="mt-1 text-violet-500" aria-hidden="true">&#10003;</span><span class="text-slate-300">Смяна и надграждане на SSD и RAM памет</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1 text-violet-500" aria-hidden="true">&#10003;</span><span class="text-slate-300">Почистване от прах и грижа за компонентите</span></li>
+            <li class="flex items-start gap-3"><span class="mt-1 text-violet-500" aria-hidden="true">&#10003;</span><span class="text-slate-300">Диагностика на хардуерни и софтуерни проблеми</span></li>
+          </ul>
+          <a href="/Pages/html/software.html" class="inline-flex items-center gap-2 rounded-lg border border-violet-500/20 bg-violet-600/10 px-6 py-3 font-semibold text-violet-400 transition hover:bg-violet-600/20">
+            Разгледай всички ръководства &rarr;
+          </a>
+        </div>
+        <div class="relative w-full flex-1">
+          <div class="absolute inset-0 rounded-full bg-violet-600/10 blur-[80px]" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&amp;w=800&amp;auto=format&amp;fit=crop"
+               alt="Техник ремонтира компютърна техника"
+               loading="lazy"
+               class="relative aspect-video w-full rounded-2xl border border-slate-700/50 object-cover shadow-xl lg:aspect-square">
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="mb-2 text-3xl font-bold text-white">Последни уроци</h2>
+        <p class="text-slate-400">Разгледайте нашите видео уроци и ръководства.</p>
       </div>
       <div id="tutorial-list" data-page="index" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        <p class="col-span-full py-12 text-center text-slate-500">Loading tutorials...</p>
+        <p class="col-span-full py-12 text-center text-slate-400">Уроците се зареждат...</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+      <div class="relative overflow-hidden rounded-3xl border border-violet-500/20 bg-slate-900">
+        <div class="absolute inset-0 bg-gradient-to-br from-violet-900/40 via-slate-900 to-slate-900" aria-hidden="true"></div>
+        <div class="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-violet-600/20 blur-3xl" aria-hidden="true"></div>
+
+        <div class="relative z-10 px-6 py-16 text-center sm:px-16">
+          <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl">Нуждаете се от помощ?</h2>
+          <p class="mx-auto mb-10 max-w-2xl text-lg text-slate-300">
+            Свържете се с нас по имейл или разгледайте уроците, за да откриете подходящото решение за вашия проблем.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="mailto:hardwareacadenyx@gmail.com" class="rounded-lg bg-white px-8 py-3.5 font-bold text-slate-900 transition hover:bg-slate-200">
+              Пишете ни
+            </a>
+            <a href="/Pages/html/desktop.html" class="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-8 py-3.5 font-bold text-white transition hover:border-white hover:bg-white/5">
+              Разгледай уроците
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <div id="footer-container"></div>
 
-  <!-- Load Header & Footer -->
   <script>
     async function loadComponent(elementId, filePath) {
+      const container = document.getElementById(elementId);
       try {
-        const cacheBustPath = `${filePath}?cacheBust=${Date.now()}`;
-        const response = await fetch(cacheBustPath);
-        if (response.ok) {
-          const content = await response.text();
-          const container = document.getElementById(elementId);
-          container.innerHTML = content;
+        const response = await fetch(`${filePath}?v=${Date.now()}`);
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
 
-          let overrideStyle = document.getElementById('menu-zindex-override');
-          if (!overrideStyle) {
-            overrideStyle = document.createElement('style');
-            overrideStyle.id = 'menu-zindex-override';
-            overrideStyle.textContent = `
-              .menu-toggle { z-index: 2147483647 !important; }
-              .nav { z-index: 2147483647 !important; }
-            `;
-            document.head.appendChild(overrideStyle);
-          }
+        const component = new DOMParser().parseFromString(await response.text(), 'text/html');
+        component.querySelectorAll('style').forEach(style => {
+          document.head.appendChild(style.cloneNode(true));
+        });
+        container.innerHTML = component.body.innerHTML;
 
-          container.querySelectorAll('script').forEach((script) => {
-            const executableScript = document.createElement('script');
-            Array.from(script.attributes).forEach((attribute) => {
-              executableScript.setAttribute(attribute.name, attribute.value);
-            });
-            executableScript.textContent = script.textContent;
-            script.replaceWith(executableScript);
+        container.querySelectorAll('script').forEach(script => {
+          const executableScript = document.createElement('script');
+          Array.from(script.attributes).forEach(attribute => {
+            executableScript.setAttribute(attribute.name, attribute.value);
           });
-        } else {
-          console.error(`Failed to load ${filePath}: ${response.status}`);
-        }
+          executableScript.textContent = script.textContent;
+          script.replaceWith(executableScript);
+        });
       } catch (error) {
-        console.error(`Error loading ${filePath}:`, error);
+        console.error(`Could not load ${filePath}:`, error);
       }
     }
 
-    // Use '../' to step out of the Pages folder into Header&Footer
     loadComponent('header-container', '/Header&Footer/Header.html');
     loadComponent('footer-container', '/Header&Footer/Footer.html');
   </script>
-
 </body>
 </html>

@@ -1,32 +1,32 @@
 # Hardware Academy X
 
-## Start the website and database server
+## Стартиране на сайта и сървъра за базата данни
 
-The server requires Python 3 and uses only Python's standard library. From the project root, open a terminal and run:
+Сървърът изисква Python 3 и използва само стандартната библиотека на Python. Отворете терминал в главната папка на проекта и изпълнете:
 
 ```powershell
 py Other/server.py
 ```
 
-If the `py` command is unavailable, use:
+Ако командата `py` не е налична, използвайте:
 
 ```powershell
 python Other/server.py
 ```
 
-When the terminal prints `Website server running at http://127.0.0.1:4500`, open the pages at:
+Когато в терминала се появи `Website server running at http://127.0.0.1:4500`, отворете някоя от страниците:
 
-- Main page: http://127.0.0.1:4500/index.html
-- Desktop tutorials: http://127.0.0.1:4500/Pages/html/desktop.html
-- Laptop tutorials: http://127.0.0.1:4500/Pages/html/laptop.html
-- Phone tutorials: http://127.0.0.1:4500/Pages/html/phone.html
-- Software tutorials: http://127.0.0.1:4500/Pages/html/software.html
-- Video Hub: http://127.0.0.1:4500/Admin/VideoHub.html
+- Начална страница: http://127.0.0.1:4500/index.html
+- Уроци за настолни компютри: http://127.0.0.1:4500/Pages/html/desktop.html
+- Уроци за лаптопи: http://127.0.0.1:4500/Pages/html/laptop.html
+- Уроци за телефони: http://127.0.0.1:4500/Pages/html/phone.html
+- Уроци за софтуер: http://127.0.0.1:4500/Pages/html/software.html
+- Видео библиотека: http://127.0.0.1:4500/Admin/VideoHub.html
 
-Keep the terminal running while using the website. In the Video Hub, use **Add Video** to add a tutorial. The server saves updates to `Other/TutorialDataBase.json`.
+Оставете терминала отворен, докато използвате сайта. Във Видео библиотеката използвайте **Добави видео**, за да добавите урок. Сървърът записва промените в `Other/TutorialDataBase.json`.
 
-To stop the server, focus its terminal and press `Ctrl+C`.
+За да спрете сървъра, изберете терминала и натиснете `Ctrl+C`.
 
-## Configure tutorial types and categories
+## Настройване на типовете и категориите уроци
 
-Edit `Other/TypeList.json` to add or remove tutorial types. Edit `Other/CategoriesList.json` to set the categories for each type. Edit `Other/DeviceList.json` to set the Hardware device destinations. Every type in `TypeList.json` needs a matching key with a category array in `CategoriesList.json`. The add-video form, filters, and server validation all use these files.
+Редактирайте `Other/TypeList.json`, за да добавяте или премахвате типове уроци. В `Other/CategoriesList.json` задайте категориите за всеки тип. В `Other/DeviceList.json` задайте устройствата за хардуерните уроци. Всеки тип в `TypeList.json` трябва да има съответстващ ключ със списък от категории в `CategoriesList.json`. Формулярът за добавяне на видео, филтрите и проверките на сървъра използват тези файлове.

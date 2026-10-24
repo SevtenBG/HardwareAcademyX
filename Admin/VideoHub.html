@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
   <meta charset="UTF-8">
-    <title>Video Tutorial Hub</title>
-</head>
-<body>
-
-  <!-- Placeholders -->
-  <div id="header-container"></div>
-
-  <main>
-  <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Tutorial Hub</title>
+    <title>Видео библиотека</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,6 +24,8 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="/Pages/css/site-theme.css?v=1">
+    <script src="/Pages/js/particle-background.js?v=1" defer></script>
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Google Fonts -->
@@ -46,65 +38,54 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(156, 163, 175, 0.7); }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-full transition-colors duration-200 flex flex-col">
-
-    <header class="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <!-- Logo & Title -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
-                    <i class="ph-bold ph-video-camera text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight">Video Hub</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Source: <span class="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-brand-600 dark:text-brand-400">YouTube</span></p>
-                </div>
-            </div>
-
-            <!-- Action Controls -->
-            <div class="flex items-center gap-3">
-                <span id="databaseStatus" class="hidden text-xs text-slate-500 sm:inline">Workspace database</span>
-                <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">
-                    <i id="themeIcon" class="ph-bold ph-moon text-lg"></i>
-                </button>
-                <button onclick="openModal()" class="flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg shadow-md shadow-brand-500/20 transition active:scale-95 text-sm">
-                    <i class="ph-bold ph-plus"></i>
-                    <span>Add Video</span>
-                </button>
-            </div>
-        </div>
-    </header>
+<body class="site-theme text-slate-100 min-h-screen transition-colors duration-200 flex flex-col">
+    <div id="header-container"></div>
 
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         <!-- Search and Filters Bar -->
         <div class="mb-8 space-y-4">
             <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Видео библиотека</h1>
+                    <span id="databaseStatus" class="text-xs text-slate-500 dark:text-slate-400">Работна база данни</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="themeToggleBtn" onclick="toggleTheme()" aria-label="Промяна на темата" class="p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">
+                        <i id="themeIcon" class="ph-bold ph-moon text-lg"></i>
+                    </button>
+                    <button onclick="openModal()" class="flex items-center gap-2 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-medium rounded-lg shadow-md shadow-brand-500/20 transition active:scale-95 text-sm">
+                        <i class="ph-bold ph-plus"></i>
+                        <span>Добави видео</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                 <!-- Search Input -->
                 <div class="relative w-full md:w-96">
                     <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
-                    <input type="text" id="searchInput" placeholder="Search titles, descriptions, steps..." 
+                    <input type="text" id="searchInput" placeholder="Търсене в заглавия, описания и стъпки..."
                         class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-brand-500 focus:outline-none transition text-sm">
                 </div>
 
                 <!-- Filters -->
                 <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-end">
-                    <select id="typeFilter" aria-label="Tutorial type" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                        <option value="All">All Types</option>
+                    <select id="typeFilter" aria-label="Тип на урока" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="All">Всички типове</option>
                     </select>
-                    <select id="deviceFilter" aria-label="Hardware device" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                        <option value="All">All Devices</option>
+                    <select id="deviceFilter" aria-label="Хардуерно устройство" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
+                        <option value="All">Всички устройства</option>
                     </select>
                     <!-- Category Select -->
                     <select id="categoryFilter" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                        <option value="All">All Categories</option>
+                        <option value="All">Всички категории</option>
                     </select>
 
                     <!-- Sort Order -->
                     <select id="sortOrder" class="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none transition">
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">Oldest First</option>
-                        <option value="duration">Sort by Duration</option>
+                        <option value="newest">Първо най-новите</option>
+                        <option value="oldest">Първо най-старите</option>
+                        <option value="duration">Сортиране по продължителност</option>
                     </select>
                 </div>
             </div>
@@ -125,8 +106,8 @@
             <div class="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
                 <i class="ph-bold ph-video-slash"></i>
             </div>
-            <h3 class="text-base font-semibold text-slate-700 dark:text-slate-300">No videos found</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Try adjusting your search terms or add a new video entry.</p>
+            <h3 class="text-base font-semibold text-slate-700 dark:text-slate-300">Няма намерени видеа</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Променете търсенето или добавете ново видео.</p>
         </div>
     </main>
 
@@ -137,9 +118,9 @@
             <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <i class="ph-bold ph-folder-plus text-brand-600 text-xl"></i>
-                    <h2 id="videoModalTitle" class="text-lg font-bold text-slate-800 dark:text-white">Add New Video Entry</h2>
+                    <h2 id="videoModalTitle" class="text-lg font-bold text-slate-800 dark:text-white">Добавяне на ново видео</h2>
                 </div>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg">
+                <button onclick="closeModal()" aria-label="Затвори формуляра" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
@@ -148,42 +129,42 @@
             <form id="addVideoForm" onsubmit="handleFormSubmit(event)" class="p-6 overflow-y-auto space-y-4 custom-scrollbar flex-1">
                 <!-- Video Title -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Video Title *</label>
-                    <input type="text" id="formTitle" required placeholder="e.g. Building a CSS Grid Layout"
+                    <label for="formTitle" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Заглавие на видеото *</label>
+                    <input type="text" id="formTitle" required placeholder="напр. Сглобяване на компютър"
                         class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
                 </div>
 
                 <!-- YouTube URL -->
                 <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-dashed border-slate-300 dark:border-slate-700">
                     <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">
-                        YouTube Video URL *
+                        URL адрес на YouTube видеото *
                     </label>
                     <input type="url" id="formVideoUrl" required placeholder="https://www.youtube.com/watch?v=..." oninput="handleYouTubeUrlInput(event)"
                         class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none font-mono text-xs">
                     <p class="mt-2 text-[11px] text-slate-400">
-                        Paste a YouTube watch link, short link, or direct video ID.
+                        Поставете линк към YouTube видео или директен идентификатор.
                     </p>
 
                     <div id="durationStatus" class="mt-3 flex items-center gap-2 text-xs text-slate-500">
                         <i class="ph-bold ph-youtube-logo"></i>
-                        <span>Source: <strong id="detectedDurationText" class="text-brand-600 dark:text-brand-400">Waiting for YouTube URL</strong></span>
+                        <span>Източник: <strong id="detectedDurationText" class="text-brand-600 dark:text-brand-400">Очаква се YouTube адрес</strong></span>
                     </div>
                 </div>
 
                 <!-- Type, Category & Device Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Type</label>
+                        <label for="formType" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Тип</label>
                         <select id="formType" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Category</label>
+                        <label for="formCategory" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Категория</label>
                         <select id="formCategory" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
                         </select>
                     </div>
                     <div id="formDeviceGroup">
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1" for="formDevice">Device</label>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1" for="formDevice">Устройство</label>
                         <select id="formDevice" class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none">
                         </select>
                     </div>
@@ -191,33 +172,33 @@
 
                 <!-- Description -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Description *</label>
-                    <textarea id="formDescription" rows="2" required placeholder="Brief summary of what this video covers..."
+                    <label for="formDescription" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Описание *</label>
+                    <textarea id="formDescription" rows="2" required placeholder="Кратко описание на съдържанието на видеото..."
                         class="w-full px-3.5 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
                 </div>
 
                 <!-- Quick Steps -->
                 <div>
                     <div class="flex items-center justify-between mb-1">
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Quick Steps (Step-by-step list)</label>
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Стъпки (последователност от действия)</label>
                         <button type="button" onclick="addStepInput()" class="text-xs text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1">
-                            <i class="ph-bold ph-plus-circle"></i> Add Step
+                            <i class="ph-bold ph-plus-circle"></i> Добави стъпка
                         </button>
                     </div>
                     <div id="quickStepsContainer" class="space-y-2">
                         <div class="flex items-center gap-2">
                             <span class="text-xs font-bold text-slate-400 w-4">1.</span>
-                            <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Step description...">
-                            <button type="button" onclick="removeStepInput(this)" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
+                            <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Описание на стъпката...">
+                            <button type="button" onclick="removeStepInput(this)" aria-label="Премахни стъпката" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Form Footer Buttons -->
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-end gap-3">
-                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Cancel</button>
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Отказ</button>
                     <button id="saveVideoButton" type="submit" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium shadow-md shadow-brand-500/20 transition flex items-center gap-1.5">
-                        <i class="ph-bold ph-check"></i> Save Video
+                        <i class="ph-bold ph-check"></i> Запази видеото
                     </button>
                 </div>
             </form>
@@ -258,8 +239,8 @@
             const select = document.getElementById(selectId);
             const previousValue = select.value;
             select.replaceChildren();
-            if (includeAll) select.add(new Option('All Types', 'All'));
-            tutorialTypes.forEach(type => select.add(new Option(type, type)));
+            if (includeAll) select.add(new Option('Всички типове', 'All'));
+            tutorialTypes.forEach(type => select.add(new Option(translateType(type), type)));
             select.value = [...select.options].some(option => option.value === previousValue)
                 ? previousValue
                 : includeAll ? 'All' : tutorialTypes[0];
@@ -269,8 +250,8 @@
             const select = document.getElementById(selectId);
             const previousValue = select.value;
             select.replaceChildren();
-            if (includeAll) select.add(new Option('All Devices', 'All'));
-            tutorialDevices.forEach(device => select.add(new Option(device, device)));
+            if (includeAll) select.add(new Option('Всички устройства', 'All'));
+            tutorialDevices.forEach(device => select.add(new Option(translateDevice(device), device)));
             select.value = [...select.options].some(option => option.value === previousValue)
                 ? previousValue
                 : includeAll ? 'All' : tutorialDevices[0];
@@ -283,8 +264,8 @@
                 ? [...new Set(Object.values(tutorialCategories).flat())]
                 : tutorialCategories[type] || [];
             select.replaceChildren();
-            if (includeAll) select.add(new Option('All Categories', 'All'));
-            categories.forEach(category => select.add(new Option(category, category)));
+            if (includeAll) select.add(new Option('Всички категории', 'All'));
+            categories.forEach(category => select.add(new Option(translateCategory(category), category)));
             select.value = [...select.options].some(option => option.value === previousValue)
                 ? previousValue
                 : includeAll ? 'All' : categories[0];
@@ -310,6 +291,26 @@
             return /youtube\.com|youtu\.be/.test(url || '');
         }
 
+        function translateType(type) {
+            return ({ Hardware: 'Хардуер', Software: 'Софтуер' })[type] || type;
+        }
+
+        function translateDevice(device) {
+            return ({ Desktop: 'Настолен компютър', Laptop: 'Лаптоп', Phone: 'Телефон' })[device] || device;
+        }
+
+        function translateCategory(category) {
+            return ({
+                General: 'Общи',
+                Repair: 'Ремонт',
+                Upgrade: 'Надграждане',
+                Clean: 'Почистване',
+                Installation: 'Инсталация',
+                Testing: 'Тестване',
+                Update: 'Актуализация'
+            })[category] || category;
+        }
+
         // On Page Load
         window.addEventListener('DOMContentLoaded', async () => {
             initTheme();
@@ -325,7 +326,7 @@
                 document.getElementById('formDeviceGroup').hidden = document.getElementById('formType').value !== 'Hardware';
             } catch (error) {
                 console.error('Could not load type and category lists:', error);
-                document.getElementById('databaseStatus').textContent = 'Category lists unavailable';
+                document.getElementById('databaseStatus').textContent = 'Списъците с категории не са налични';
                 return;
             }
             await loadTutorialDatabase();
@@ -357,7 +358,7 @@
             } catch (error) {
                 console.error('Could not load TutorialDataBase.json:', error);
                 videos = [];
-                document.getElementById('databaseStatus').textContent = 'Database unavailable';
+                document.getElementById('databaseStatus').textContent = 'Базата данни не е налична';
             }
         }
 
@@ -466,7 +467,7 @@
                             </span>
 
                             <span class="absolute top-3 left-3 bg-brand-600/90 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded shadow">
-                                ${video.category}
+                                ${escapeHtml(translateCategory(video.category))}
                             </span>
                         </div>
 
@@ -477,10 +478,10 @@
                                         ${escapeHtml(video.title)}
                                     </h3>
                                     <div class="flex shrink-0 items-center gap-1">
-                                        <button onclick="editVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-brand-600" title="Edit video" aria-label="Edit ${escapeHtml(video.title)}">
+                                        <button onclick="editVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-brand-600" title="Редактирай видеото" aria-label="Редактирай ${escapeHtml(video.title)}">
                                             <i class="ph-bold ph-pencil-simple text-sm"></i>
                                         </button>
-                                        <button onclick="deleteVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-red-500" title="Delete video" aria-label="Delete ${escapeHtml(video.title)}">
+                                        <button onclick="deleteVideo('${video.id}')" class="p-1 text-slate-400 transition hover:text-red-500" title="Изтрий видеото" aria-label="Изтрий ${escapeHtml(video.title)}">
                                             <i class="ph-bold ph-trash text-sm"></i>
                                         </button>
                                     </div>
@@ -493,7 +494,7 @@
                             ${video.quickSteps && video.quickSteps.length > 0 ? `
                             <div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
                                 <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1">
-                                    <i class="ph-bold ph-list-checks text-brand-500"></i> Quick Steps
+                                    <i class="ph-bold ph-list-checks text-brand-500"></i> Стъпки
                                 </h4>
                                 <ol class="space-y-1">
                                     ${video.quickSteps.map((step, idx) => `
@@ -507,9 +508,9 @@
                             ` : ''}
 
                             <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-                                ${video.type === 'Hardware' ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">${escapeHtml(video.device)}</span>` : ''}
+                                ${video.type === 'Hardware' ? `<span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">${escapeHtml(translateDevice(video.device))}</span>` : ''}
                                 <span class="ml-auto text-[10px] text-slate-400 self-center font-mono">
-                                    ID: ${escapeHtml(video.id)}
+                                    Номер: ${escapeHtml(video.id)}
                                 </span>
                             </div>
                         </div>
@@ -535,17 +536,17 @@
             const value = event.target.value.trim();
             const statusText = document.getElementById('detectedDurationText');
             if (!value) {
-                statusText.textContent = 'Waiting for YouTube URL';
+                statusText.textContent = 'Очаква се YouTube адрес';
                 calculatedDuration = 180;
                 return;
             }
 
             const normalized = normalizeYouTubeUrl(value);
             if (isYouTubeUrl(normalized)) {
-                statusText.textContent = 'YouTube URL ready';
+                statusText.textContent = 'YouTube адресът е готов';
                 calculatedDuration = 180;
             } else {
-                statusText.textContent = 'Not a valid YouTube URL';
+                statusText.textContent = 'Невалиден YouTube адрес';
                 calculatedDuration = 180;
             }
         }
@@ -558,8 +559,8 @@
             div.className = 'flex items-center gap-2';
             div.innerHTML = `
                 <span class="text-xs font-bold text-slate-400 w-4">${count}.</span>
-                <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Step description...">
-                <button type="button" onclick="removeStepInput(this)" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
+                <input type="text" class="quick-step-input w-full px-3 py-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Описание на стъпката...">
+                <button type="button" onclick="removeStepInput(this)" aria-label="Премахни стъпката" class="text-slate-400 hover:text-red-500"><i class="ph-bold ph-trash"></i></button>
             `;
             container.appendChild(div);
         }
@@ -589,12 +590,12 @@
                 .filter(val => val.length > 0);
 
             if (quickSteps.length === 0) {
-                alert('Please add at least one tutorial step.');
+                alert('Добавете поне една стъпка към урока.');
                 return;
             }
 
             if (!youtubeUrl || !isYouTubeUrl(normalizeYouTubeUrl(youtubeUrl))) {
-                alert('Please enter a valid YouTube URL.');
+                alert('Въведете валиден YouTube адрес.');
                 return;
             }
 
@@ -602,7 +603,7 @@
 
             const existingIndex = videos.findIndex(video => video.id === editingVideoId);
             if (editingVideoId && existingIndex === -1) {
-                alert('This tutorial is no longer available. Refresh the page and try again.');
+                alert('Този урок вече не е наличен. Обновете страницата и опитайте отново.');
                 return;
             }
 
@@ -666,12 +667,12 @@
                 });
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.error || `Save failed: ${response.status}`);
-                document.getElementById('databaseStatus').textContent = 'Workspace database saved';
+                document.getElementById('databaseStatus').textContent = 'Базата данни е запазена';
                 return true;
             } catch (error) {
                 console.error('Could not save TutorialDataBase.json:', error);
-                document.getElementById('databaseStatus').textContent = 'Database save failed';
-                alert(`Could not save to the website database. Start the site with "python Other/server.py".\n\n${error.message}`);
+                document.getElementById('databaseStatus').textContent = 'Неуспешно записване на базата данни';
+                alert(`Записването в базата данни не бе успешно. Стартирайте сайта с "py Other/server.py".\n\n${error.message}`);
                 return false;
             }
         }
@@ -707,8 +708,8 @@
                 stepsContainer.lastElementChild.querySelector('input').value = step;
             });
 
-            document.getElementById('videoModalTitle').textContent = 'Edit Video Entry';
-            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Save Changes';
+            document.getElementById('videoModalTitle').textContent = 'Редактиране на видео';
+            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Запази промените';
             showVideoModal();
         }
 
@@ -722,10 +723,10 @@
             const stepsContainer = document.getElementById('quickStepsContainer');
             stepsContainer.replaceChildren();
             addStepInput();
-            document.getElementById('videoModalTitle').textContent = 'Add New Video Entry';
-            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Save Video';
+            document.getElementById('videoModalTitle').textContent = 'Добавяне на ново видео';
+            document.getElementById('saveVideoButton').innerHTML = '<i class="ph-bold ph-check"></i> Запази видеото';
             calculatedDuration = 180;
-            document.getElementById('detectedDurationText').textContent = 'Waiting for YouTube URL';
+            document.getElementById('detectedDurationText').textContent = 'Очаква се YouTube адрес';
         }
 
         function showVideoModal() {
@@ -751,7 +752,7 @@
 
         // Theme Toggle Logic
         function initTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (localStorage.theme !== 'light') {
                 document.documentElement.classList.add('dark');
                 document.getElementById('themeIcon').className = 'ph-bold ph-sun text-lg';
             } else {
@@ -781,8 +782,7 @@
                       .replace(/'/g, "&#039;");
         }
     </script>
-</body>
-  </main>
+    </main>
 
   <div id="footer-container"></div>
 
@@ -796,17 +796,6 @@
           const content = await response.text();
           const container = document.getElementById(elementId);
           container.innerHTML = content;
-
-          let overrideStyle = document.getElementById('menu-zindex-override');
-          if (!overrideStyle) {
-            overrideStyle = document.createElement('style');
-            overrideStyle.id = 'menu-zindex-override';
-            overrideStyle.textContent = `
-              .menu-toggle { z-index: 2147483647 !important; }
-              .nav { z-index: 2147483647 !important; }
-            `;
-            document.head.appendChild(overrideStyle);
-          }
 
           container.querySelectorAll('script').forEach((script) => {
             const executableScript = document.createElement('script');
@@ -824,9 +813,8 @@
       }
     }
 
-    // Use '../' to step out of the Pages folder into Header&Footer
-    loadComponent('header-container', '../Header&Footer/Header.html');
-    loadComponent('footer-container', '../Header&Footer/Footer.html');
+    loadComponent('header-container', '/Header&Footer/Header.html');
+    loadComponent('footer-container', '/Header&Footer/Footer.html');
   </script>
 
 </body>

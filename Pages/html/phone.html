@@ -1,30 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Phone Tutorials</title>
-	<link rel="stylesheet" href="../css/tutorial-modal.css?v=4">
+	<title>Уроци за телефони</title>
+	<link rel="stylesheet" href="../css/site-theme.css?v=1">
+	<link rel="stylesheet" href="../css/tutorial-modal.css?v=8">
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="../js/particle-background.js?v=1" defer></script>
 	<script src="../js/tutorial-modal.js?v=4" defer></script>
 	<script src="../js/tutorial-display.js?v=4" defer></script>
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-800">
+<body class="site-theme min-h-screen font-sans text-slate-100 antialiased">
 	<div id="header-container"></div>
 
 	<main>
 		<section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
 			<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
-				<h1 class="text-3xl font-bold text-slate-900">Phone Tutorials</h1>
+				<h1 class="tutorial-page-title text-3xl font-bold">Уроци за телефони</h1>
 				<div>
-					<label class="sr-only" for="tutorial-category-filter">Filter by category</label>
-					<select id="tutorial-category-filter" class="px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
-						<option value="All">All Hardware Categories</option>
+					<label class="sr-only" for="tutorial-category-filter">Филтриране по категория</label>
+					<select id="tutorial-category-filter" class="tutorial-page-filter rounded-xl border px-3.5 py-2.5 text-sm focus:ring-2 focus:outline-none">
+						<option value="All">Всички хардуерни категории</option>
 					</select>
 				</div>
 			</div>
 			<div id="tutorial-list" data-page="phone" data-type="Hardware" data-device="Phone" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-				<p class="col-span-full py-12 text-center text-slate-500">Loading tutorials...</p>
+				<p class="col-span-full py-12 text-center text-slate-500">Уроците се зареждат...</p>
 			</div>
 		</section>
 	</main>

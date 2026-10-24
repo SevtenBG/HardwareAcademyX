@@ -8,12 +8,12 @@
         modal.hidden = true;
         modal.innerHTML = `
             <section class="tutorial-modal" role="dialog" aria-modal="true" aria-labelledby="tutorial-modal-title" aria-describedby="tutorial-modal-description" tabindex="-1">
-                <button class="tutorial-modal-close" type="button" aria-label="Close tutorial details">
+                <button class="tutorial-modal-close" type="button" aria-label="Затвори подробностите за урока">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
                 </button>
                 <div class="tutorial-modal-media"></div>
                 <div class="tutorial-modal-content">
-                    <div class="tutorial-modal-metadata" aria-label="Tutorial details"></div>
+                    <div class="tutorial-modal-metadata" aria-label="Подробности за урока"></div>
                     <h2 class="tutorial-modal-title" id="tutorial-modal-title"></h2>
                     <p class="tutorial-modal-description" id="tutorial-modal-description"></p>
                     <div class="tutorial-modal-steps"></div>
@@ -46,7 +46,7 @@
             media.hidden = false;
             const video = document.createElement('iframe');
             video.src = videoUrl;
-            video.title = `${tutorial.name || 'Tutorial'} video`;
+            video.title = `${tutorial.name || 'Урок'} — видео`;
             video.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
             video.allowFullscreen = true;
             video.referrerPolicy = 'strict-origin-when-cross-origin';
@@ -57,19 +57,19 @@
 
         const metadata = modal.querySelector('.tutorial-modal-metadata');
         metadata.replaceChildren();
-        addMetadata(metadata, 'Category', tutorial.category || 'General');
-        addMetadata(metadata, 'Type', tutorial.type || 'Hardware');
-        if ((tutorial.type || 'Hardware') === 'Hardware') addMetadata(metadata, 'Device', tutorial.device);
+        addMetadata(metadata, 'Категория', translateCategory(tutorial.category || 'General'));
+        addMetadata(metadata, 'Тип', translateType(tutorial.type || 'Hardware'));
+        if ((tutorial.type || 'Hardware') === 'Hardware') addMetadata(metadata, 'Устройство', translateDevice(tutorial.device));
 
-        modal.querySelector('.tutorial-modal-title').textContent = tutorial.name || 'Untitled tutorial';
-        modal.querySelector('.tutorial-modal-description').textContent = tutorial.description || 'No description provided.';
+        modal.querySelector('.tutorial-modal-title').textContent = tutorial.name || 'Урок без заглавие';
+        modal.querySelector('.tutorial-modal-description').textContent = tutorial.description || 'Няма предоставено описание.';
 
         const stepsContainer = modal.querySelector('.tutorial-modal-steps');
         stepsContainer.replaceChildren();
         if (Array.isArray(tutorial.stepsGuide) && tutorial.stepsGuide.length > 0) {
             const heading = document.createElement('h3');
             heading.className = 'tutorial-modal-steps-heading';
-            heading.textContent = 'Steps';
+            heading.textContent = 'Стъпки';
             const steps = document.createElement('ol');
             steps.className = 'tutorial-modal-steps-list';
             tutorial.stepsGuide.forEach(step => {
@@ -81,7 +81,7 @@
         }
 
         const id = modal.querySelector('.tutorial-modal-id');
-        id.textContent = tutorial.tutorialId ? `Tutorial ID: ${tutorial.tutorialId}` : '';
+        id.textContent = tutorial.tutorialId ? `Номер на урока: ${tutorial.tutorialId}` : '';
         modal.hidden = false;
         document.body.classList.add('tutorial-modal-open');
         modal.querySelector('.tutorial-modal-close').focus();
@@ -102,6 +102,26 @@
         if (youtubeMatch) return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&rel=0`;
         if (/(?:youtube\.com|youtu\.be)/i.test(value)) return '';
         return value;
+    }
+
+    function translateCategory(category) {
+        return ({
+            General: 'Общи',
+            Repair: 'Ремонт',
+            Upgrade: 'Надграждане',
+            Clean: 'Почистване',
+            Installation: 'Инсталация',
+            Testing: 'Тестване',
+            Update: 'Актуализация'
+        })[category] || category;
+    }
+
+    function translateType(type) {
+        return ({ Hardware: 'Хардуер', Software: 'Софтуер' })[type] || type;
+    }
+
+    function translateDevice(device) {
+        return ({ Desktop: 'Настолен компютър', Laptop: 'Лаптоп', Phone: 'Телефон' })[device] || device || '';
     }
 
     document.addEventListener('keydown', event => {

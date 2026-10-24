@@ -3,22 +3,22 @@
     {
       "tutorialId": "tutorial-aff3a88e-ca88-4c94-89ac-b83c456e749d",
       "videoUrl": "https://www.youtube.com/watch?v=DC-Xn2C_L1U",
-      "name": "Building your first computer",
-      "description": "How to build your first computer. Step by step guide. Video + instructions",
+      "name": "Сглобяване на първия ви компютър",
+      "description": "Как да сглобите първия си компютър. Подробно ръководство с видео и инструкции.",
       "stepsGuide": [
-        "Setting up the motherboard",
-        "CPU installation on the motherboard",
-        "RAM installation on the motherboard",
-        "SSD installation on the motherboard",
-        "CPU Cooler installation on the CPU + Fans",
-        "Test Boot",
-        "PC case unpacking",
-        "Mounting motherboard in case",
-        "Connecting cables from fans, ssd, hdd and other",
-        "Installing the power supply in the case",
-        "Doing all the cable management from the power supply",
-        "Installing the graphics card",
-        "Booting the pc"
+        "Подготовка на дънната платка",
+        "Инсталиране на процесора върху дънната платка",
+        "Инсталиране на RAM паметта",
+        "Инсталиране на SSD диска",
+        "Монтиране на охлаждането на процесора и вентилаторите",
+        "Пробно стартиране",
+        "Разопаковане на компютърната кутия",
+        "Монтиране на дънната платка в кутията",
+        "Свързване на кабелите на вентилаторите, SSD, HDD и другите компоненти",
+        "Монтиране на захранването в кутията",
+        "Подреждане на кабелите от захранването",
+        "Монтиране на видеокартата",
+        "Стартиране на компютъра"
       ],
       "type": "Hardware",
       "category": "General",
@@ -27,14 +27,14 @@
     {
       "tutorialId": "tutorial-b12c456e-789a-4bcdef-1234-56789abcdef0",
       "videoUrl": "https://www.youtube.com/watch?v=VNnZU5IOyc4",
-      "name": "Laptop Screen Replacement Guide",
-      "description": "Step-by-step instructions on how to safely replace a cracked laptop screen.",
+      "name": "Ръководство за смяна на екран на лаптоп",
+      "description": "Стъпка по стъпка инструкции за безопасна смяна на счупен екран на лаптоп.",
       "stepsGuide": [
-        "Power down and disconnect the battery",
-        "Remove bezel screws and carefully pry off the bezel",
-        "Unscrew the LCD panel from the hinges",
-        "Disconnect the display cable safely",
-        "Connect the new screen and reassemble"
+        "Изключете лаптопа и разкачете батерията",
+        "Отстранете винтовете и внимателно свалете рамката на екрана",
+        "Развийте LCD панела от пантите",
+        "Внимателно разкачете кабела на дисплея",
+        "Свържете новия екран и сглобете лаптопа"
       ],
       "type": "Hardware",
       "category": "Repair",
@@ -43,14 +43,14 @@
     {
       "tutorialId": "tutorial-c34d5678-9012-4def-abcd-ef0123456789",
       "videoUrl": "https://www.youtube.com/watch?v=example2",
-      "name": "Upgrading RAM and SSD in a Laptop",
-      "description": "Boost your laptop performance by upgrading memory and storage.",
+      "name": "Надграждане на RAM паметта и SSD диска на лаптоп",
+      "description": "Подобрете производителността на лаптопа си с повече памет и място за съхранение.",
       "stepsGuide": [
-        "Open the back panel of the laptop",
-        "Disconnect the battery for safety",
-        "Remove old RAM and insert new sticks",
-        "Install the new M.2 NVMe SSD",
-        "Reassemble and boot up"
+        "Отворете задния капак на лаптопа",
+        "За безопасност разкачете батерията",
+        "Извадете старата RAM памет и поставете новата",
+        "Инсталирайте новия M.2 NVMe SSD диск",
+        "Сглобете лаптопа и го стартирайте"
       ],
       "type": "Hardware",
       "category": "Upgrade",
@@ -59,13 +59,13 @@
     {
       "tutorialId": "tutorial-d56e7890-1234-5efg-abcd-ef8901234567",
       "videoUrl": "https://www.youtube.com/watch?v=example3",
-      "name": "How to Clean Dust Out of Your Phone Charging Port",
-      "description": "Quick and safe ways to clear out lint and dust from a smartphone port.",
+      "name": "Почистване на прах от порта за зареждане на телефон",
+      "description": "Бързи и безопасни начини за отстраняване на прах и мъх от порта на смартфон.",
       "stepsGuide": [
-        "Power off the phone",
-        "Use a wooden toothpick carefully to clear debris",
-        "Blow out remaining dust with compressed air safely",
-        "Test the cable connection"
+        "Изключете телефона",
+        "Внимателно отстранете замърсяванията с дървена клечка",
+        "Безопасно издухайте останалия прах със сгъстен въздух",
+        "Проверете връзката с кабела"
       ],
       "type": "Hardware",
       "category": "Clean",
@@ -74,12 +74,12 @@
     {
       "tutorialId": "tutorial-e789f012-3456-7890-abcd-ef1234567890",
       "videoUrl": "https://www.youtube.com/watch?v=example4",
-      "name": "Understanding Your Operating System Settings",
-      "description": "A general overview of basic system settings and navigation.",
+      "name": "Запознаване с настройките на операционната система",
+      "description": "Общ преглед на основните системни настройки и навигацията.",
       "stepsGuide": [
-        "Accessing settings menu",
-        "Checking storage and memory usage",
-        "Configuring privacy and notifications"
+        "Отваряне на менюто с настройки",
+        "Проверка на използваното място за съхранение и памет",
+        "Настройка на поверителността и известията"
       ],
       "type": "Software",
       "category": "General",
@@ -88,13 +88,13 @@
     {
       "tutorialId": "tutorial-f901a234-5678-9012-abcd-ef3456789012",
       "videoUrl": "https://www.youtube.com/watch?v=example5",
-      "name": "Installing Productivity Software on Desktop",
-      "description": "How to download, install, and set up essential desktop applications.",
+      "name": "Инсталиране на софтуер за продуктивност на компютър",
+      "description": "Как да изтеглите, инсталирате и настроите основни приложения за компютър.",
       "stepsGuide": [
-        "Download the official installer",
-        "Run the executable file",
-        "Follow the setup wizard instructions",
-        "Launch and sign in"
+        "Изтеглете официалния инсталатор",
+        "Стартирайте изпълнимия файл",
+        "Следвайте инструкциите на помощника за инсталиране",
+        "Стартирайте приложението и влезте в профила си"
       ],
       "type": "Software",
       "category": "Installation",
@@ -103,13 +103,13 @@
     {
       "tutorialId": "tutorial-a234b567-8901-2345-abcd-ef5678901234",
       "videoUrl": "https://www.youtube.com/watch?v=example6",
-      "name": "Running Hardware and Software Diagnostics on Phones",
-      "description": "How to test your phone's sensors, screen, and battery health.",
+      "name": "Диагностика на хардуера и софтуера на телефон",
+      "description": "Как да проверите сензорите, екрана и състоянието на батерията на телефона си.",
       "stepsGuide": [
-        "Open phone diagnostic mode or download a trusted test app",
-        "Run touch screen and multi-touch tests",
-        "Test speakers, microphone, and cameras",
-        "Check overall battery status"
+        "Отворете диагностичния режим на телефона или изтеглете надеждно приложение за тестове",
+        "Тествайте сензорния екран и разпознаването на няколко докосвания",
+        "Проверете високоговорителите, микрофона и камерите",
+        "Проверете общото състояние на батерията"
       ],
       "type": "Software",
       "category": "Testing",
@@ -118,13 +118,13 @@
     {
       "tutorialId": "tutorial-b345c678-9012-3456-abcd-ef7890123456",
       "videoUrl": "https://www.youtube.com/watch?v=example7",
-      "name": "Updating Your Laptop Operating System",
-      "description": "Step-by-step guide to keeping your laptop software secure and up to date.",
+      "name": "Актуализиране на операционната система на лаптоп",
+      "description": "Ръководство стъпка по стъпка за поддържане на сигурността и актуалността на софтуера.",
       "stepsGuide": [
-        "Connect to a stable Wi-Fi network and plug in the charger",
-        "Navigate to System Update settings",
-        "Download available updates",
-        "Restart the laptop to complete installation"
+        "Свържете се към стабилна Wi-Fi мрежа и включете зарядното устройство",
+        "Отворете настройките за системни актуализации",
+        "Изтеглете наличните актуализации",
+        "Рестартирайте лаптопа, за да завършите инсталацията"
       ],
       "type": "Software",
       "category": "Update",

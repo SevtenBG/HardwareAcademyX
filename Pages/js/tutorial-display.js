@@ -11,7 +11,7 @@ async function loadPageTutorials() {
             fetch('/Other/DeviceList.json', { cache: 'no-store' })
         ]);
         if (!databaseResponse.ok || !categoriesResponse.ok || !devicesResponse.ok) {
-            throw new Error('Could not load the tutorial JSON files.');
+            throw new Error('Неуспешно зареждане на файловете с уроци.');
         }
 
         const [database, categoriesByType, devices] = await Promise.all([
@@ -20,7 +20,7 @@ async function loadPageTutorials() {
             devicesResponse.json()
         ]);
         if (!Array.isArray(database.tutorials)) {
-            throw new Error('TutorialDataBase.json must contain a tutorials array.');
+            throw new Error('Файлът TutorialDataBase.json трябва да съдържа списък с уроци.');
         }
 
         const filteredTutorials = database.tutorials.filter(tutorial => {
@@ -34,7 +34,7 @@ async function loadPageTutorials() {
         const categoryFilter = document.getElementById('tutorial-category-filter');
         if (categoryFilter) {
             const categories = categoriesByType[pageType] || [];
-            categories.forEach(category => categoryFilter.add(new Option(category, category)));
+            categories.forEach(category => categoryFilter.add(new Option(translateCategory(category), category)));
             const requestedCategory = new URLSearchParams(location.search).get('category');
             if (categories.includes(requestedCategory)) categoryFilter.value = requestedCategory;
             categoryFilter.addEventListener('change', () => renderPageTutorials(pageTutorials));
@@ -43,7 +43,7 @@ async function loadPageTutorials() {
         renderPageTutorials(pageTutorials);
     } catch (error) {
         console.error('Could not display tutorials:', error);
-        tutorialList.innerHTML = '<p class="col-span-full py-12 text-center text-red-700">Tutorials could not be loaded. Open the site through a local web server and check the JSON files.</p>';
+        tutorialList.innerHTML = '<p class="col-span-full py-12 text-center text-red-700">Уроците не могат да бъдат заредени. Отворете сайта през локален уеб сървър и проверете JSON файловете.</p>';
     }
 }
 
@@ -56,7 +56,7 @@ function renderPageTutorials(tutorials) {
         : tutorials.filter(tutorial => (tutorial.category || 'General') === selectedCategory);
 
     if (visibleTutorials.length === 0) {
-        tutorialList.innerHTML = '<p class="col-span-full py-12 text-center text-slate-500">No tutorials in this category yet.</p>';
+        tutorialList.innerHTML = '<p class="col-span-full py-12 text-center text-slate-500">Все още няма уроци в тази категория.</p>';
         return;
     }
     tutorialList.replaceChildren(...visibleTutorials.map(createTutorialCard));
@@ -64,13 +64,13 @@ function renderPageTutorials(tutorials) {
 
 function createTutorialCard(tutorial) {
     const card = document.createElement('article');
-    card.className = 'overflow-hidden border border-slate-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg';
+    card.className = 'tutorial-card overflow-hidden rounded-2xl border border-violet-500/20 text-slate-100 shadow-lg shadow-violet-950/20 transition duration-200 hover:-translate-y-1 hover:border-violet-400/60 hover:shadow-xl hover:shadow-violet-950/40';
 
     const openButton = document.createElement('div');
     openButton.setAttribute('role', 'button');
     openButton.tabIndex = 0;
-    openButton.className = 'group block w-full text-left focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-[-4px] focus-visible:outline-indigo-400';
-    openButton.setAttribute('aria-label', `Open tutorial: ${tutorial.name || 'Untitled tutorial'}`);
+    openButton.className = 'group block w-full text-left focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-[-4px] focus-visible:outline-violet-400';
+    openButton.setAttribute('aria-label', `Отвори урок: ${tutorial.name || 'Урок без заглавие'}`);
     openButton.addEventListener('click', () => window.TutorialModal.open(tutorial));
     openButton.addEventListener('keydown', event => {
         if (event.key === 'Enter' || event.key === ' ') {
@@ -93,7 +93,7 @@ function createTutorialCard(tutorial) {
     } else {
         const fallback = document.createElement('span');
         fallback.className = 'px-6 text-center text-lg font-semibold text-white';
-        fallback.textContent = tutorial.name || 'Tutorial video';
+        fallback.textContent = tutorial.name || 'Учебно видео';
         preview.appendChild(fallback);
     }
 
@@ -108,30 +108,30 @@ function createTutorialCard(tutorial) {
     content.className = 'space-y-3 p-5';
 
     const heading = document.createElement('h2');
-    heading.className = 'text-xl font-semibold text-slate-900';
-    heading.textContent = tutorial.name || 'Untitled tutorial';
+    heading.className = 'text-xl font-semibold text-white';
+    heading.textContent = tutorial.name || 'Урок без заглавие';
     content.appendChild(heading);
 
     const description = document.createElement('p');
-    description.className = 'text-sm leading-6 text-slate-600';
+    description.className = 'text-sm leading-6 text-slate-400';
     description.textContent = tutorial.description || '';
     content.appendChild(description);
 
     const metadata = document.createElement('div');
     metadata.className = 'flex flex-wrap gap-2 pt-1';
-    [tutorial.category || 'General', tutorial.type || 'Hardware', tutorial.type === 'Hardware' ? tutorial.device : '']
+    [translateCategory(tutorial.category || 'General'), translateType(tutorial.type || 'Hardware'), tutorial.type === 'Hardware' ? translateDevice(tutorial.device) : '']
         .filter(Boolean)
         .forEach(value => {
             const badge = document.createElement('span');
-            badge.className = 'rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-900';
+            badge.className = 'rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1 text-xs font-medium text-violet-200';
             badge.textContent = value;
             metadata.appendChild(badge);
         });
     content.appendChild(metadata);
 
     const action = document.createElement('span');
-    action.className = 'inline-flex items-center gap-2 pt-1 text-sm font-semibold text-indigo-700';
-    action.textContent = 'View tutorial';
+    action.className = 'inline-flex items-center gap-2 pt-1 text-sm font-semibold text-violet-300';
+    action.textContent = 'Виж урока';
     const actionArrow = document.createElement('span');
     actionArrow.setAttribute('aria-hidden', 'true');
     actionArrow.textContent = '→';
@@ -147,6 +147,26 @@ function getYoutubeVideoId(url) {
     const value = (url || '').trim();
     const youtubeMatch = value.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
     return youtubeMatch ? youtubeMatch[1] : '';
+}
+
+function translateCategory(category) {
+    return ({
+        General: 'Общи',
+        Repair: 'Ремонт',
+        Upgrade: 'Надграждане',
+        Clean: 'Почистване',
+        Installation: 'Инсталация',
+        Testing: 'Тестване',
+        Update: 'Актуализация'
+    })[category] || category;
+}
+
+function translateType(type) {
+    return ({ Hardware: 'Хардуер', Software: 'Софтуер' })[type] || type;
+}
+
+function translateDevice(device) {
+    return ({ Desktop: 'Настолен компютър', Laptop: 'Лаптоп', Phone: 'Телефон' })[device] || device || '';
 }
 
 document.addEventListener('DOMContentLoaded', loadPageTutorials);

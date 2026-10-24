@@ -1,0 +1,38 @@
+body.site-theme {
+    background-color: #0a0810 !important;
+    color: #f1f5f9;
+}
+
+#particle-background {
+    position: fixed;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#header-container,
+body.site-theme main,
+#footer-container {
+    position: relative;
+    z-index: 1;
+}
+
+#header-container {
+    z-index: 1001;
+}
+
+.tutorial-page-title {
+    color: #fff;
+}
+
+.tutorial-page-filter {
+    border-color: rgba(179, 136, 255, 0.35);
+    background-color: #171222;
+    color: #f5f3ff;
+}
+
+.tutorial-page-filter:focus {
+    --tw-ring-color: #b388ff;
+}
